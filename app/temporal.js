@@ -1,7 +1,7 @@
-import React from "react";
+import React,{useEffect} from "react";
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams,useRouter } from 'expo-router';
 
 const getContenido = (titulo) => {
   switch (titulo) {
@@ -39,6 +39,7 @@ const getContenido = (titulo) => {
 };
 
 export default function Temporal() {
+  const router=useRouter();
   const { titulo } = useLocalSearchParams();
   console.log('Título recibido:', titulo);
   const contenido = getContenido(titulo);
@@ -51,6 +52,14 @@ export default function Temporal() {
       </SafeAreaView>
     );
   }
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('firstGrade');
+    }, 10000); 
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <SafeAreaView style={[style.container, { backgroundColor: contenido.Fondo }]}>

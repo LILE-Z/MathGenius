@@ -61,14 +61,6 @@ export default function RootLayout() {
               },
             }}
           />
-          <Drawer.Screen
-            name="firstGrade"
-            options={{
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
         </Drawer>
       </GestureHandlerRootView>
     </ThemeProvider>
