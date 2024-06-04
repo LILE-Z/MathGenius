@@ -82,82 +82,76 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
-          <Drawer.Screen
-            name="index"
-            options={{
-              title: "Home",
-              drawerLabel: "Home",
-              drawerIcon: ({ color, size }) => (
-                <Ionicons name="home" color={color} size={size} />
-              ),
-              drawerStyle: {
-                backgroundColor: "#000000cf",
-              },
-            }}
-          />
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
+        <Drawer.Screen
+          name="index"
+          options={{
+            title: "Home",
+            drawerIcon: ({ color, size }) => (
+              <Ionicons name="home" color={color} size={size} />
+            ),
+          }}
+        />
 
-          <Drawer.Screen
-            name="+not-found"
-            options={{
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
+        <Drawer.Screen
+          name="+not-found"
+          options={{
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
 
-          <Drawer.Screen
-            name="area"
-            options={{
-              title: "Area debajo de la Curva",
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
+        <Drawer.Screen
+          name="area"
+          options={{
+            title: "Area debajo de la Curva",
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
 
-          <Drawer.Screen
-            name="general"
-            options={{
-              title: "Formula general",
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
-          <Drawer.Screen
-            name="ecuaciones"
-            options={{
-              title: "Sistema de ecuaciones",
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
-          <Drawer.Screen
-            name="temporal"
-            options={{
-              drawerLabel: "Temporal",
-              title: "Temporal",
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
-          <Drawer.Screen
-            name="firstGrade"
-            options={{
-              drawerLabel: "Ecuaciones de 1 Grado",
-              title: "Ecuaciones de 1 Grado",
-              drawerItemStyle: {
-                display: "none",
-              },
-            }}
-          />
-        </Drawer>
-      </GestureHandlerRootView>
-    </ThemeProvider>
+        <Drawer.Screen
+          name="general"
+          options={{
+            title: "Formula general",
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="ecuaciones"
+          options={{
+            title: "Sistema de ecuaciones",
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="temporal"
+          options={{
+            drawerLabel: "Temporal",
+            title: "Temporal",
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="firstGrade"
+          options={{
+            drawerLabel: "Ecuaciones de 1 Grado",
+            title: "Ecuaciones de 1 Grado",
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
+      </Drawer>
+    </GestureHandlerRootView>
   );
 }
