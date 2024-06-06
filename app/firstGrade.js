@@ -116,9 +116,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor:"#CCD3CA"
   },
   card: {
-    backgroundColor: '#ffffff',
+    backgroundColor: '#B5C0D0',
     borderRadius: 8,
     padding: 16,
     shadowColor: '#000',
@@ -160,10 +161,10 @@ const styles = StyleSheet.create({
   operatorPicker: {
     width: 60,
     height: 40,
-    marginHorizontal: 8,
+    marginHorizontal: 8
   },
   calculateButton: {
-    backgroundColor: '#2196F3',
+    backgroundColor: '#9BB0C1',
     borderRadius: 4,
     marginBottom: 16,
   },

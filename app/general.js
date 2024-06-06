@@ -97,7 +97,9 @@ x2 = ${x2}`;
             />
             <Text style={styles.equationText}> = 0</Text>
           </View>
-          <Button title="Calcular" onPress={calculateQuadraticEquation} />
+          <Button title="Calcular" onPress={calculateQuadraticEquation} 
+          style={styles.calculateButton}
+          />
           <View style={styles.resultContainer}>
             <Text style={styles.process}>{process}</Text>
             <Text style={styles.result}>{result}</Text>
@@ -111,7 +113,7 @@ x2 = ${x2}`;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#CBF1F5',
+    backgroundColor: '#43766C',
   },
   blurContainer: {
     flex: 1,
@@ -160,5 +162,12 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  calculateButton: {
+    marginTop: 20,
+    borderRadius: 5,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    backgroundColor: '#76453B',
   },
 });

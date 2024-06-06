@@ -22,7 +22,7 @@ const temas = [
   },
   {
     titulo: 'Sistema de ecuaciones',
-    imagen: 'https://uploads-cdn.omnicalculator.com/images/systems_of_equations_2.PNG',
+    imagen: 'https://cdn-academy.pressidium.com/academy/wp-content/uploads/2020/12/FAQ-Comparison-of-Methods-for-Solving-Systems-3.png',
     importancia: 'Los sistemas de ecuaciones son esenciales para modelar y resolver problemas que involucran múltiples variables y se utilizan en áreas como la economía, la ingeniería y la investigación operativa.',
   },
 ];

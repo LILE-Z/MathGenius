@@ -10,7 +10,7 @@ const getContenido = (titulo) => {
         Titulo: 'Ecuaciones de 1 Grado',
         Descripcion: 'Las ecuaciones de primer grado son aquellas en las que la incógnita tiene exponente 1. Se pueden resolver despejando la incógnita mediante operaciones algebraicas básicas.',
         Imagen: "https://countingwell.com/img/blog_img.png",
-        Fondo: '#F0E68C',
+        Fondo: '#F1EF99',
         Redireccion: 'firstGrade',
       };
     case 'Formula general':
@@ -18,7 +18,7 @@ const getContenido = (titulo) => {
         Titulo: 'Fórmula General',
         Descripcion: 'La fórmula general es una expresión que permite resolver cualquier ecuación de segundo grado. Proporciona las soluciones (raíces) de la ecuación cuadrática.',
         Imagen: "https://mathematicalmysteries.org/wp-content/uploads/2021/11/3eb41-11auhmjxh0gvsn49wzgqhcw.png",
-        Fondo: '#87CEFA',
+        Fondo: '#B19470',
         Redireccion: 'general',
       };
     case 'Calculo de Area debajo de la Curva':
@@ -34,7 +34,7 @@ const getContenido = (titulo) => {
         Titulo: 'Sistema de Ecuaciones',
         Descripcion: 'Un sistema de ecuaciones es un conjunto de dos o más ecuaciones que involucran las mismas incógnitas. Se resuelve encontrando los valores de las incógnitas que satisfacen todas las ecuaciones simultáneamente.',
         Imagen: "https://yosoytuprofe.20minutos.es/wp-content/uploads/2022/08/tres-me%CC%81todos-para-resolver-sistemas-de-ecuaciones.png",
-        Fondo: '#023047',
+        Fondo: '#028391',
         Redireccion: 'ecuaciones',
       };
     default:
@@ -52,7 +52,7 @@ export default function Temporal() {
     if (contenido) {
       const timer = setTimeout(() => {
         router.push(contenido.Redireccion);
-      }, 10000);
+      }, 5000);
 
       return () => clearTimeout(timer);
     }
