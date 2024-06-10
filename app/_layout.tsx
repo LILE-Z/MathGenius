@@ -16,13 +16,18 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Ionicons } from "@expo/vector-icons";
-import { Linking, Platform, Share, View } from "react-native";
+import { Linking, Platform, Share, View, Text, StyleSheet } from "react-native";
 import { router } from "expo-router";
+
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
+
 function CustomDrawerContent(props: any) {
   return (
     <DrawerContentScrollView {...props}>
+      <View style={styles.drawerHeader}>
+        <Text style={styles.drawerHeaderText}>MathGenius</Text>
+      </View>
       <DrawerItemList {...props} />
       <DrawerItem
         label="Ecuaciones de 1 Grado"
@@ -32,6 +37,8 @@ function CustomDrawerContent(props: any) {
             params: { titulo: "Ecuaciones de 1 Grado" },
           });
         }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
       />
       <DrawerItem
         label="Formula general"
@@ -41,6 +48,8 @@ function CustomDrawerContent(props: any) {
             params: { titulo: "Formula general" },
           });
         }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
       />
       <DrawerItem
         label="Area debajo de la Curva"
@@ -50,6 +59,8 @@ function CustomDrawerContent(props: any) {
             params: { titulo: "Calculo de Area debajo de la Curva" },
           });
         }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
       />
       <DrawerItem
         label="Sistema de ecuaciones"
@@ -59,14 +70,18 @@ function CustomDrawerContent(props: any) {
             params: { titulo: "Sistema de ecuaciones" },
           });
         }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
       />
+      <View style={styles.drawerFooter}>
+        <Text style={styles.drawerFooterText}>© 2024 MathGenius-CBTiS 260</Text>
+      </View>
     </DrawerContentScrollView>
   );
 }
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
-
   const [loaded] = useFonts({
     SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
   });
@@ -93,7 +108,6 @@ export default function RootLayout() {
             ),
           }}
         />
-
         <Drawer.Screen
           name="+not-found"
           options={{
@@ -102,7 +116,6 @@ export default function RootLayout() {
             },
           }}
         />
-
         <Drawer.Screen
           name="area"
           options={{
@@ -112,7 +125,6 @@ export default function RootLayout() {
             },
           }}
         />
-
         <Drawer.Screen
           name="general"
           options={{
@@ -155,3 +167,38 @@ export default function RootLayout() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  drawerHeader: {
+    backgroundColor: "#5a72a0",
+    padding: 16,
+    marginBottom: 16,
+  },
+  drawerHeaderText: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#FDFFE2",
+  },
+  drawerItemLabel: {
+    fontSize: 16,
+    color: "#1A2130",
+  },
+  drawerItem: {
+    marginVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: "#83B4FF",
+    paddingBottom: 8,
+    backgroundColor: "white",
+  },
+  drawerFooter: {
+    marginTop: 280,
+    padding: 16,
+    borderTopWidth: 1,
+    borderTopColor: "#83B4FF",
+  },
+  drawerFooterText: {
+    fontSize: 14,
+    color: "#1A2130",
+    textAlign: "center",
+  },
+});
