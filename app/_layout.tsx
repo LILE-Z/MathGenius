@@ -16,13 +16,41 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { Ionicons } from "@expo/vector-icons";
-import { Linking, Platform, Share, View, Text, StyleSheet } from "react-native";
+import {
+  Linking,
+  Platform,
+  Share,
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+} from "react-native";
 import { router } from "expo-router";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
 function CustomDrawerContent(props: any) {
+  const handleShare = async () => {
+    try {
+      const result = await Share.share({
+        message:
+          "Tengo problemas aprendiendo Matemáticas. Me gustaría recibir ayuda adicional para mejorar mi comprensión en esta materia.",
+      });
+      if (result.action === Share.sharedAction) {
+        if (result.activityType) {
+          // shared with activity type of result.activityType
+        } else {
+          // shared
+        }
+      } else if (result.action === Share.dismissedAction) {
+        // dismissed
+      }
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+  };
+
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerHeader}>
@@ -72,6 +100,28 @@ function CustomDrawerContent(props: any) {
         }}
         labelStyle={styles.drawerItemLabel}
         style={styles.drawerItem}
+      />
+      <DrawerItem
+        label="Phone"
+        onPress={() => {
+          if (Platform.OS === "android") {
+            Linking.openURL("tel: 2222222222");
+          } else {
+            Linking.openURL("telprompt: 2222222222");
+          }
+        }}
+        icon={({ color, size }) => (
+          <Ionicons name="call" color={color} size={size} />
+        )}
+        labelStyle={{ color: "#623a27" }}
+      />
+      <DrawerItem
+        label="Share"
+        onPress={handleShare}
+        icon={({ color, size }) => (
+          <Ionicons name="share" color={color} size={size} />
+        )}
+        labelStyle={{ color: "#623a27" }}
       />
       <View style={styles.drawerFooter}>
         <Text style={styles.drawerFooterText}>© 2024 MathGenius-CBTiS 260</Text>
@@ -191,7 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   drawerFooter: {
-    marginTop: 280,
+    marginTop: 10,
     padding: 16,
     borderTopWidth: 1,
     borderTopColor: "#83B4FF",
