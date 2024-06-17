@@ -102,6 +102,26 @@ function CustomDrawerContent(props: any) {
         style={styles.drawerItem}
       />
       <DrawerItem
+        label="Lectura 1"
+        onPress={() => {
+          router.push({
+            pathname: "ecuacionesLeccion",
+          });
+        }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
+      />
+      <DrawerItem
+        label="Quiz"
+        onPress={() => {
+          router.push({
+            pathname: "quiz",
+          });
+        }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
+      />
+      <DrawerItem
         label="Phone"
         onPress={() => {
           if (Platform.OS === "android") {
@@ -148,7 +168,10 @@ export default function RootLayout() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Drawer drawerContent={(props) => <CustomDrawerContent {...props} />}>
+      <Drawer
+        initialRouteName="login"
+        drawerContent={(props) => <CustomDrawerContent {...props} />}
+      >
         <Drawer.Screen
           name="index"
           options={{
@@ -211,6 +234,46 @@ export default function RootLayout() {
             drawerItemStyle: {
               display: "none",
             },
+          }}
+        />
+        <Drawer.Screen
+          name="login"
+          options={{
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="registro"
+          options={{
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="ecuacionesLeccion"
+          options={{
+            drawerLabel: "Lectura 1",
+            title: "Lectura 1",
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: true,
+          }}
+        />
+        <Drawer.Screen
+          name="quiz"
+          options={{
+            drawerLabel: "Quiz",
+            title: "Quiz",
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: true,
           }}
         />
       </Drawer>
