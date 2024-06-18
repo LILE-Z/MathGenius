@@ -101,6 +101,7 @@ function CustomDrawerContent(props: any) {
         labelStyle={styles.drawerItemLabel}
         style={styles.drawerItem}
       />
+
       <DrawerItem
         label="Lectura 1"
         onPress={() => {
@@ -111,11 +112,32 @@ function CustomDrawerContent(props: any) {
         labelStyle={styles.drawerItemLabel}
         style={styles.drawerItem}
       />
+
       <DrawerItem
-        label="Quiz"
+        label="Lectura 2"
         onPress={() => {
           router.push({
-            pathname: "quiz",
+            pathname: "determinantes",
+          });
+        }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
+      />
+      <DrawerItem
+        label="Lectura 3"
+        onPress={() => {
+          router.push({
+            pathname: "sustitucion",
+          });
+        }}
+        labelStyle={styles.drawerItemLabel}
+        style={styles.drawerItem}
+      />
+      <DrawerItem
+        label="Calculadora"
+        onPress={() => {
+          router.push({
+            pathname: "calculadora",
           });
         }}
         labelStyle={styles.drawerItemLabel}
@@ -270,6 +292,38 @@ export default function RootLayout() {
           options={{
             drawerLabel: "Quiz",
             title: "Quiz",
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: true,
+          }}
+        />
+        <Drawer.Screen
+          name="calculadora"
+          options={{
+            title: "Calculadora",
+            drawerLabel: "Calculadora",
+            drawerItemStyle: {
+              display: "none",
+            },
+          }}
+        />
+        <Drawer.Screen
+          name="determinantes"
+          options={{
+            drawerLabel: "Lectura 2",
+            title: "Lectura 2",
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: true,
+          }}
+        />
+        <Drawer.Screen
+          name="sustitucion"
+          options={{
+            drawerLabel: "Lectura 3",
+            title: "Lectura 3",
             drawerItemStyle: {
               display: "none",
             },

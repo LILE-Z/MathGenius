@@ -3,11 +3,12 @@ import { View, Text, Image, TouchableOpacity, ScrollView, StyleSheet } from 'rea
 import { Video } from 'expo-av';
 import * as Speech from 'expo-speech';
 import { Ionicons } from '@expo/vector-icons';
-
+import { FontAwesome } from '@expo/vector-icons';
+import {useRouter} from 'expo-router';
 const SistemasEcuaciones = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [isSpeaking, setIsSpeaking] = useState(false);
-
+  const router = useRouter();
   const content = {
     intro: 'Los sistemas de ecuaciones son conjuntos de ecuaciones que se resuelven simultáneamente. Estos sistemas tienen diversas aplicaciones en matemáticas, física, ingeniería y otras áreas. Los sistemas de ecuaciones pueden ser lineales o no lineales, y pueden tener una única solución, infinitas soluciones o ninguna solución.',
     history: 'La historia de los sistemas de ecuaciones se remonta a la antigua Babilonia, donde se encontraron tablillas de arcilla con problemas que involucraban sistemas de ecuaciones lineales. Los antiguos egipcios también utilizaban sistemas de ecuaciones para resolver problemas prácticos, como la distribución de pan y cerveza. A lo largo de la historia, matemáticos como Carl Friedrich Gauss, Évariste Galois y Alan Turing realizaron importantes contribuciones al estudio de los sistemas de ecuaciones.',
@@ -24,6 +25,9 @@ const SistemasEcuaciones = () => {
     Speech.speak(text, { language: 'es' });
     setIsSpeaking(true);
   };
+  const handleQuizPress = () => {
+    router.push('/quiz');
+  };
 
   return (
     <View style={styles.container}>
@@ -32,31 +36,32 @@ const SistemasEcuaciones = () => {
 
         <Text style={styles.subtitle}>Introducción</Text>
         <Text style={styles.paragraph}>{content.intro}</Text>
-        <Image source={{ uri: 'URL_DE_LA_IMAGEN_1' }} style={styles.image} />
+        <Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Secretsharing_3-point.svg/1200px-Secretsharing_3-point.svg.png' }} style={styles.image} />
 
         <Text style={styles.subtitle}>Historia</Text>
         <Text style={styles.paragraph}>{content.history}</Text>
-        <Image source={{ uri: 'URL_DE_LA_IMAGEN_2' }} style={styles.image} />
+        <Image source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Carl_Friedrich_Gauss_1840_by_Jensen.jpg/1200px-Carl_Friedrich_Gauss_1840_by_Jensen.jpg'}} style={styles.image} />
 
         <Text style={styles.subtitle}>Métodos de Resolución</Text>
         <Text style={styles.paragraph}>{content.methods}</Text>
-        <Image source={{ uri: 'URL_DE_LA_IMAGEN_3' }} style={styles.image} />
+        <Image source={{ uri: 'https://kidcourses.com/wp-content/uploads/2015/01/Systems-Method-Poster-635x491.png' }} style={styles.image} />
 
         <Text style={styles.subtitle}>Aplicaciones</Text>
         <Text style={styles.paragraph}>{content.applications}</Text>
-        <Image source={{ uri: 'URL_DE_LA_IMAGEN_4' }} style={styles.image} />
+        <Image source={{ uri: 'https://www.algebra-class.com/images/System-of-Equations-1.gif' }} style={styles.image} />
 
         <Text style={styles.subtitle}>Importancia</Text>
         <Text style={styles.paragraph}>{content.importance}</Text>
-        <Image source={{ uri: 'URL_DE_LA_IMAGEN_5' }} style={styles.image} />
 
     <Text style={styles.subtitle}>Tipos</Text>
         <Text style={styles.paragraph}>{content.types}</Text>
+
     <Text style={styles.subtitle}>Soluciones</Text>
         <Text style={styles.paragraph}>{content.solutions}</Text>
 
     <Text style={styles.subtitle}>Vida Real</Text>
         <Text style={styles.paragraph}>{content.realLife}</Text>
+        <Image source={{ uri: 'https://media.diy.com/is/image/KingfisherDigital/deluxe-sudoku-game-mathematical-puzzle-wooden-board-game-with-99-puzzles-at-3-difficulty-levels-27-x-27-x-5cm~5053335907983_01c_MP?$MOB_PREV$&$width=768&$height=768' }} style={styles.image} />
         <Text style={styles.subtitle}>Información Adicional</Text>
         <Video
           source={require('@/assets/videos/ecuaciones2.mp4')}
@@ -76,6 +81,18 @@ const SistemasEcuaciones = () => {
           seekBarBackground={{ backgroundColor: 'rgba(255, 255, 255, 0.3)' }}
           seekBarProgress={{ backgroundColor: '#fff' }}
         />
+    <TouchableOpacity style={styles.quizButton} onPress={handleQuizPress}>
+          <Text style={styles.quizButtonText}>Ponte a prueba</Text>
+            <FontAwesome name="question-circle" size={24} color="#fff" style={
+              {
+                width: 24,
+                height: 24,
+                tintColor: '#fff',
+                marginLeft: 5,
+              }
+            } />
+
+        </TouchableOpacity>
       </ScrollView>
 
       <TouchableOpacity style={styles.speakButton} onPress={speakText}>
@@ -84,7 +101,6 @@ const SistemasEcuaciones = () => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -114,7 +130,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: '100%',
-    height: 200,
+    height: 307,
     marginBottom: 20,
     borderRadius: 10,
   },
@@ -139,11 +155,48 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 20,
     right: 20,
-    backgroundColor: '#007AFF',
+    backgroundColor: 'rgba(52, 152, 219, 0.8)',
     borderRadius: 50,
     padding: 15,
     elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+  },
+  quizButton: {
+    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+    paddingVertical: 12,
+    paddingHorizontal: 24,
+    borderRadius: 30,
+    marginTop: 20,
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
+    marginBottom: 30,
+  },
+  quizButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginLeft: 10,
+  },
+  quizIcon: {
+    width: 24,
+    height: 24,
+    tintColor: '#fff',
   },
 });
-
 export default SistemasEcuaciones;
