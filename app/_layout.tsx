@@ -191,11 +191,11 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
-        initialRouteName="login"
+        initialRouteName="/"
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >
         <Drawer.Screen
-          name="index"
+          name="home"
           options={{
             title: "Home",
             drawerIcon: ({ color, size }) => (
@@ -261,6 +261,18 @@ export default function RootLayout() {
         <Drawer.Screen
           name="login"
           options={{
+            drawerItemStyle: {
+              display: "none",
+            },
+            headerShown: false,
+          }}
+        />
+        <Drawer.Screen
+          name="index"
+          options={{
+            drawerLabelStyle: {
+              display: "none",
+            },
             drawerItemStyle: {
               display: "none",
             },

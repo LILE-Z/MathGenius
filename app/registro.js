@@ -65,7 +65,7 @@ function Registro() {
 
       setTimeout(() => {
         console.log('Registro exitoso');
-        router.push('/login');
+        router.push('/');
       }, 1000);
     } catch (error) {
       console.error('Error al registrar usuario:', error);
@@ -119,7 +119,7 @@ function Registro() {
             ¿Ya tienes una cuenta?{' '}
             <Text
               style={styles.loginLink}
-              onPress={() => router.push('/login')}
+              onPress={() => router.push('/')}
             >
               Inicia sesión
             </Text>

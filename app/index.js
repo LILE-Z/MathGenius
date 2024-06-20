@@ -1,85 +1,136 @@
-import React, { useState } from "react";
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, ImageBackground } from 'react-native';
-import { useRouter } from 'expo-router';
-import { Card, Dialog, Button } from '@rneui/themed';
+import React, { Suspense, useState, useEffect } from "react";
+import { Text, StyleSheet, View, ImageBackground, Image, ToastAndroid, TextInput } from "react-native";
+import { SQLiteProvider, useSQLiteContext } from "expo-sqlite";
+import { Button } from "@rneui/base";
+import { useRouter, useFocusEffect } from "expo-router";
+import { FontAwesome } from '@expo/vector-icons';
 
-const temas = [
-  {
-    titulo: 'Ecuaciones de 1 Grado',
-    imagen: 'https://www.todopapas.com//images/cms_2011/tpp/NINOS/ecuacones.jpg',
-    importancia: 'Las ecuaciones de primer grado son fundamentales en la resolución de problemas cotidianos y en diversas áreas como la física, la economía y la ingeniería.',
-  },
-  {
-    titulo: 'Formula general',
-    imagen: 'https://www.wikihow.com/images/thumb/2/22/Solve-Quadratic-Equations-Using-the-Quadratic-Formula-Step-9.jpg/v4-460px-Solve-Quadratic-Equations-Using-the-Quadratic-Formula-Step-9.jpg',
-    importancia: 'La fórmula general es una herramienta poderosa para resolver ecuaciones cuadráticas de manera eficiente y se utiliza en diversos campos científicos y técnicos.',
-  },
-  {
-    titulo: 'Calculo de Area debajo de la Curva',
-    imagen: 'https://cdn1.byjus.com/wp-content/uploads/2018/11/formulas/2016/04/13175445/Area-Under-the-Curve1.png',
-    importancia: 'El cálculo del área debajo de la curva es fundamental en la integración y tiene aplicaciones en la física, la estadística y la ingeniería, permitiendo resolver problemas relacionados con la acumulación y la medición de cantidades.',
-  },
-  {
-    titulo: 'Sistema de ecuaciones',
-    imagen: 'https://cdn-academy.pressidium.com/academy/wp-content/uploads/2020/12/FAQ-Comparison-of-Methods-for-Solving-Systems-3.png',
-    importancia: 'Los sistemas de ecuaciones son esenciales para modelar y resolver problemas que involucran múltiples variables y se utilizan en áreas como la economía, la ingeniería y la investigación operativa.',
-  },
-];
+export default function App() {
+  return (
+    <Suspense fallback={<Text>Loading...</Text>}>
+      <SQLiteProvider
+        databaseName="mydb.db"
+        assetSource={{ assetId: require("../assets/mydb.db") }}
+        useSuspense
+      >
+        <LoginScreen />
+      </SQLiteProvider>
+    </Suspense>
+  );
+}
 
-export default function Home() {
+function LoginScreen() {
+  const db = useSQLiteContext();
+  const [user, setUser] = useState("");
+  const [password, setPassword] = useState("");
   const router = useRouter();
-  const [selectedTema, setSelectedTema] = useState(null);
 
-  const handleTemaPress = (titulo) => {
-    router.push({
-      pathname: "temporal",
-      params: { titulo },
-    });
+  useEffect(() => {
+    checkSession();
+  }, []);
+
+  const checkSession = async () => {
+    try {
+      const result = await db.getAllAsync(
+        "SELECT * FROM users WHERE sesion = 1"
+      );
+
+      if (result.length > 0) {
+        router.push('/home');
+      }
+    } catch (error) {
+      console.error("Error al verificar la sesión:", error);
+    }
   };
 
-  const handleLogoPress = (tema) => {
-    setSelectedTema(tema);
+  const handleLogin = async () => {
+    if (user.trim() === "" || password.trim() === "") {
+      ToastAndroid.show('Por favor, completa todos los campos. 📝', ToastAndroid.SHORT);
+      return;
+    }
+
+    try {
+      const result = await db.getAllAsync(
+        "SELECT * FROM users WHERE user = ? AND password = ? AND sesion = 0",
+        [user, password]
+      );
+
+      if (result.length > 0) {
+        await db.runAsync(
+          "UPDATE users SET sesion = 1 WHERE user = ?",
+          [user]
+        );
+
+        router.push('/home');
+      } else {
+        ToastAndroid.show('Credenciales incorrectas. Por favor, verifica tus datos e intenta nuevamente. 🔒', ToastAndroid.LONG);
+      }
+    } catch (error) {
+      console.error("Error al ejecutar la consulta:", error);
+    }
   };
 
-  const closeDialog = () => {
-    setSelectedTema(null);
+  const refreshData = async () => {
+    try {
+      const result = await db.getAllAsync("SELECT * FROM users");
+      console.log("Datos actualizados:", result);
+    } catch (error) {
+      console.error("Error al obtener los datos actualizados:", error);
+    }
   };
+
+  useFocusEffect(
+    React.useCallback(() => {
+      refreshData();
+    }, [])
+  );
 
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={{ uri: 'https://fancywalls.eu/wp-content/uploads/irregular-grid-pattern-repeat-removable-wallpaper-design.jpg' }}
+        source={{ uri: 'https://i.pinimg.com/736x/0a/5e/74/0a5e74e5007a1000b57248d0694dc781.jpg' }}
         style={styles.backgroundImage}
       >
-        <ScrollView>
-          {temas.map((tema, index) => (
-            <Card key={index} containerStyle={styles.cardContainer}>
-              <View style={styles.cardContent}>
-                <Text style={styles.temaTitle}>{tema.titulo}</Text>
-                <TouchableOpacity onPress={() => handleTemaPress(tema.titulo)}>
-                  <Image source={{ uri: tema.imagen }} style={styles.imagenTema} />
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.logoContainer} onPress={() => handleLogoPress(tema)}>
-                  <Image source={require('@/assets/images/bombilla.png')} style={styles.logo} />
-                </TouchableOpacity>
-              </View>
-            </Card>
-          ))}
-        </ScrollView>
+        <View style={styles.content}>
+          <Text style={styles.title}>Inicio de sesión</Text>
+          <Image
+            source={require('../assets/images/logo.png')}
+            style={styles.logo}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Usuario"
+            value={user}
+            onChangeText={setUser}
+            placeholderTextColor="#888"
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Contraseña"
+            secureTextEntry
+            value={password}
+            onChangeText={setPassword}
+            placeholderTextColor="#888"
+          />
+          <Button
+            title="Iniciar sesión"
+            buttonStyle={styles.button}
+            containerStyle={styles.buttonContainer}
+            titleStyle={styles.buttonTitle}
+            onPress={handleLogin}
+            icon={<FontAwesome name="sign-in" size={24} color="white" />}
+          />
+          <Text style={styles.registerText}>
+            ¿No tienes una cuenta?{' '}
+            <Text
+              style={styles.registerLink}
+              onPress={() => router.push('/registro')}
+            >
+              Regístrate
+            </Text>
+          </Text>
+        </View>
       </ImageBackground>
-
-      <Dialog isVisible={selectedTema !== null} onBackdropPress={closeDialog}>
-        {selectedTema && (
-          <>
-            <Dialog.Title title={selectedTema.titulo} />
-            <Text>{selectedTema.importancia}</Text>
-            <Dialog.Actions>
-              <Dialog.Button title="Cerrar" onPress={closeDialog} />
-            </Dialog.Actions>
-          </>
-        )}
-      </Dialog>
     </View>
   );
 }
@@ -87,63 +138,61 @@ export default function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
   },
   backgroundImage: {
     flex: 1,
     resizeMode: 'cover',
     justifyContent: 'center',
+  },
+  content: {
     paddingHorizontal: 20,
-  },
-  cardContainer: {
+    paddingVertical: 30,
     borderRadius: 10,
-    marginBottom: 20,
-    backgroundColor: 'white',
-    borderWidth: 0,
-    elevation: 3,
-    shadowColor: '#6A5ACD',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 41,
-    overflow: 'visible',
+    marginHorizontal: 20,
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
   },
-  cardContent: {
-    padding: 20,
-  },
-  temaTitle: {
-    fontSize: 20,
+  title: {
+    fontSize: 28,
     fontWeight: 'bold',
-    color: 'black',
+    marginBottom: 24,
+    color: '#333',
     textAlign: 'center',
-    marginBottom: 10,
   },
-  imagenTema: {
-    width: '100%',
-    height: 150,
-    resizeMode: 'cover',
-    borderRadius: 10,
+  input: {
+    height: 40,
+    borderColor: '#888',
+    borderWidth: 1,
+    marginBottom: 16,
+    paddingHorizontal: 10,
+    color: '#333',
   },
-  logoContainer: {
-    position: 'absolute',
-    top: -15,
-    right: -15,
-    backgroundColor: 'white',
+  button: {
+    backgroundColor: '#2196F3',
     borderRadius: 20,
-    padding: 5,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    paddingVertical: 10,
+  },
+  buttonContainer: {
+    marginTop: 20,
+  },
+  buttonTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    color: 'white',
+    marginLeft: 10,
+  },
+  registerText: {
+    color: '#333',
+    textAlign: 'center',
+    marginTop: 20,
+  },
+  registerLink: {
+    color: '#2196F3',
+    textDecorationLine: 'underline',
   },
   logo: {
-    width: 30,
-    height: 30,
-  },
+    width: 80,
+    height: 80,
+    alignSelf: 'center',
+    marginBottom: 20,
+},
 });
