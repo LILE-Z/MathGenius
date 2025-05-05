@@ -1,50 +1,54 @@
-# Welcome to your Expo app 👋
+# MathGenius
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+MathGenius is an educational mobile application designed to teach and simplify basic high school mathematics concepts. Whether you're learning about equations, calculus, or systems of equations, MathGenius provides a user-friendly interface to help students understand and practice these fundamental mathematical topics.
 
-## Get started
+---
 
-1. Install dependencies
+## Features
 
+- **Interactive Lessons:**  
+  Explore topics such as first-degree equations, general formulas, and systems of equations through engaging and interactive lessons.
+
+- **Area Under the Curve Calculator:**  
+  Calculate the area under a curve for functions of the form `ax^n + b` with step-by-step explanations.
+
+- **Customizable Themes:**  
+  The app adapts to light and dark modes automatically, ensuring an optimal user experience for all device settings.
+
+- **Built-in Navigation Drawer:**  
+  Easily navigate through lessons, calculators, and other tools using an intuitive drawer menu.
+
+- **Dynamic Sharing:**  
+  Share your learning progress or ask for help with the app's built-in share feature.
+
+- **Math Topics Covered:**  
+  - First-degree equations  
+  - General formulas  
+  - Area under the curve  
+  - Systems of equations  
+
+- **Additional Tools and Features:**  
+  - Math quizzes to test your knowledge.  
+  - A simple calculator for basic computations.  
+  - Key mathematical concepts explained in detail.
+
+---
+
+
+## Installation
+
+1. Clone the repository:  
+   ```bash
+   git clone https://github.com/LILE-Z/MathGenius.git
+2. Navigate to the project directory:
+   ```bash
+   cd MathGenius
+3. Install dependencies:
    ```bash
    npm install
-   ```
 
-2. Start the app
-
+4. Run the app:
    ```bash
-    npx expo start
-   ```
 
-In the output, you'll find options to open the app in a
+   npm start
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
